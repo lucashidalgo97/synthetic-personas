@@ -152,14 +152,22 @@ terminal and tell Claude to continue.
 
 ---
 
-## Step 5 — Try the other archetype and custom frames
+## Step 5 — Try the other archetypes and custom frames
 
-Two archetypes are built in:
+Three archetypes are built in:
+
+**LP side** — these test whether Violet can help allocators find good
+funds:
 
 - **B** — Family Office Generalist (default). Singapore-based PM, $4B AUM,
   high openness, low patience.
 - **A** — Institutional Allocator. Director of Alternatives at a US public
   pension, $42B AUM, skeptical, expects filters.
+
+**GP side** — this tests whether Violet can help fund managers find LPs:
+
+- **C** — Emerging GP, Fund I. Co-founder of a $10M AI-infrastructure
+  venture fund, mid-raise, no pedigree, hungry. Wants named LPs.
 
 Run them:
 
@@ -167,6 +175,7 @@ Run them:
 /test-violet            # archetype B
 /test-violet B          # same — explicit
 /test-violet A          # archetype A
+/test-violet C          # archetype C
 ```
 
 You can also override the situational frame to focus the test:
@@ -175,6 +184,8 @@ You can also override the situational frame to focus the test:
 /test-violet B You only have 5 minutes and want to test whether Violet handles a vague mandate gracefully.
 
 /test-violet A You need a $200M private credit allocation and want to see if Violet can produce a defensible shortlist.
+
+/test-violet C You're three weeks from your first close and your anchor LP is wobbling. You need warm-able LPs, not categories.
 ```
 
 Everything after the archetype letter is treated as the situational frame.

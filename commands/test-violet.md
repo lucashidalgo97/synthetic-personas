@@ -1,19 +1,22 @@
 ---
-description: Run a synthetic LP persona against Ask Violet on app.iconnections.io and report the result.
-argument-hint: "[B|A] [optional situational frame]"
+description: Run a synthetic LP or GP persona against Ask Violet on app.iconnections.io and report the result.
+argument-hint: "[B|A|C] [optional situational frame]"
 ---
 
 # Test Violet with a persona
 
-You are about to roleplay as a synthetic Limited Partner persona evaluating
-**Ask Violet** at `https://app.iconnections.io`. The user has installed this
-command from the iConnections persona-agent kit. They want to see how Violet
-behaves through the eyes of a real allocator archetype.
+You are about to roleplay as a synthetic persona evaluating **Ask Violet** at
+`https://app.iconnections.io`. The user has installed this command from the
+iConnections persona-agent kit. They want to see how Violet behaves through
+the eyes of a real allocator or fund-manager archetype.
 
 ## Step 1 — Pick the archetype
 
 Parse `$ARGUMENTS`:
-- First token is the archetype letter: `B` (Family Office Generalist, default) or `A` (Institutional Allocator).
+- First token is the archetype letter:
+  - `B` — Family Office Generalist (default, LP-side)
+  - `A` — Institutional Allocator (LP-side)
+  - `C` — Emerging GP, Fund I (GP-side, tests Violet's LP-discovery)
 - Everything after is an optional situational frame override.
 
 If no letter was given, default to `B` and tell the user.
@@ -21,8 +24,9 @@ If no letter was given, default to `B` and tell the user.
 ## Step 2 — Load the persona prompt
 
 Read the matching file:
-- `B` → `personas/prompts/archetype_b_family_office.md`
-- `A` → `personas/prompts/archetype_a_institutional.md`
+- `B` → `~/.claude/personas-prompts/archetype_b_family_office.md`
+- `A` → `~/.claude/personas-prompts/archetype_a_institutional.md`
+- `C` → `~/.claude/personas-prompts/archetype_c_emerging_gp.md`
 
 The file contains an evidence base and a full persona system prompt. From this
 point forward you are no longer Claude Code's assistant — **you are the
@@ -57,9 +61,12 @@ You have the time budget defined in the persona prompt (default ~15 min of
 real wall-clock minutes). Drive the flow naturally:
 
 - Click the **Ask Violet AI** bar at the top of the dashboard (or use ⌘K).
-- Type a query that fits *your mandate* — not a generic test query. For
-  archetype B, that's emerging-market PE or US growth-stage VC. For archetype
-  A, that's private credit shortlists with verified performance.
+- Type a query that fits *your mandate or fundraise* — not a generic test query:
+  - Archetype B: emerging-market PE or US growth-stage VC.
+  - Archetype A: private credit shortlists with verified performance.
+  - Archetype C: LPs that match a $10M Fund I AI-infrastructure manager —
+    family offices, HNW, emerging-manager-friendly fund-of-funds, foundations.
+    The GP wants *named LPs*, not categories.
 - Read Violet's response. If it asks clarifying questions, respond as the
   persona would.
 - Probe further or disengage based on whether Violet earns your trust by the
@@ -79,13 +86,14 @@ in a final `[THINKING]` block.
 After the session ends, drop character and write a short report for the user
 under a `## Session report` heading:
 
-- **Archetype:** B or A, name from the prompt.
+- **Archetype:** B, A, or C — name from the prompt.
 - **Outcome:** success / partial / walked away — by the persona's own success
   criteria from the prompt.
 - **What Violet did well** (2–4 bullets, specific to what you saw).
 - **What broke / friction** (2–4 bullets).
-- **Funds surfaced** — name the actual funds Violet returned, with AUM/YTD/
-  annualized if shown.
+- **Entities surfaced** — the actual funds (for B/A) or LPs (for C) Violet
+  returned, with whatever metadata it showed (AUM, YTD, mandate, ticket size,
+  recent commitments).
 - **Would the persona return?** One sentence answering yes/no with reason.
 
 Keep the report tight. The transcript above (your `[THINKING]` blocks and
